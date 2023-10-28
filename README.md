@@ -1,10 +1,10 @@
-#CNN_LSTM_LRCN_for_rear_signal
+## CNN_LSTM_LRCN_for_rear_signal
 
 This project is credit to the website: https://bleedaiacademy.com/human-activity-recognition-using-tensorflow-cnn-lstm/ and is powered by google colab
 
 The tutorial is about constructing and training a CNN-LSTM model and a LRCN model to recognize rear signal turning left and right
 
-#Step 0 Import the Libraries
+## Step 0 Import the Libraries
 ``` shell
 # Install the required libraries.
 !pip install pafy youtube-dl moviepy
@@ -42,7 +42,7 @@ random.seed(seed_constant)
 tf.random.set_seed(seed_constant)
 ```
 
-#Step 1: Create Dataset and its Labels
+## Step 1: Create Dataset and its Labels
 if you want to try with UCF50 – Action Recognition Dataset, then you can click the link and follow the origin way. Here I'm going to show how to prepare your own dataset with a youtube video
 1.1 Here is a youtube video link https://www.youtube.com/watch?v=_q3kA8OwZoU dowload it with whatever way you want (I recommend this website: https://yt1s.ltd/zh-tw164h/youtube-to-mp4 )
 1.2 (optional) Trim the video with whatever you want (I recommend this website: https://online-video-cutter.com/tw/ ). Now I get a 6sec video showing a car turning left
