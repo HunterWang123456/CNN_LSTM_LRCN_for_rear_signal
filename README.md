@@ -44,8 +44,15 @@ tf.random.set_seed(seed_constant)
 
 ## Step 1: Create Dataset and its Labels
 if you want to try with UCF50 – Action Recognition Dataset, then you can click the link and follow the origin way. Here I'm going to show how to prepare your own dataset with a youtube video
+
 1.1 Here is a youtube video link https://www.youtube.com/watch?v=_q3kA8OwZoU dowload it with whatever way you want (I recommend this website: https://yt1s.ltd/zh-tw164h/youtube-to-mp4 )
+
 1.2 (optional) Trim the video with whatever you want (I recommend this website: https://online-video-cutter.com/tw/ ). Now I get a 6sec video showing a car turning left
+
 1.3 Turned the mp4 into several consecutive frames with ffmpeg. You can download here: https://www.ffmpeg.org/
 ![my first git tutorial](https://github.com/HunterWang123456/CNN_LSTM_LRCN_for_rear_signal/assets/74261517/d70a2c34-bdde-458a-bcc3-fe8ed83c697f)
 install it and operate it with your terminal
+of course, if you think that preparing your own data is very time consuming and effort costing, you can also choose to download a dataset containing  consecutive frames. As far as I'm concerned, I chooes the Vehicle Rear Signal Dataset (http://vllab1.ucmerced.edu/~hhsu22/rear_signal/rear_signal#) which contained thousands of rear signal frames. 
+
+## Step 1.5: Create Dataset -- subtraction of the consecutive frames
+according the this paper
