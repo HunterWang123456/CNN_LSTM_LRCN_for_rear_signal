@@ -1,5 +1,7 @@
 #CNN_LSTM_LRCN_for_rear_signal
+
 This project is credit to the website: https://bleedaiacademy.com/human-activity-recognition-using-tensorflow-cnn-lstm/ and is powered by google colab
+
 The tutorial is about constructing and training a CNN-LSTM model and a LRCN model to recognize rear signal turning left and right
 
 #Step 0 Import the Libraries
