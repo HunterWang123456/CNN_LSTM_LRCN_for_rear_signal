@@ -56,3 +56,19 @@ of course, if you think that preparing your own data is very time consuming and 
 
 ## Step 1.5: Create Dataset -- subtraction of the consecutive frames
 according the this paper
+
+## Step 2: Preprocess the Dataset
+``` shell
+# Specify the height and width to which each video frame will be resized in our dataset.-> the value is flexible 
+IMAGE_HEIGHT , IMAGE_WIDTH = 256, 256
+
+# Specify the number of frames of a video that will be fed to the model as one sequence.-> the value is flexible, larger sequence means longer video for training
+SEQUENCE_LENGTH = 20
+
+# Specify the directory containing the prepared dataset.
+DATASET_DIR = "tell_left_right"
+
+# Specify the list containing the names of the classes used for training. It depends on the classes and purpose of your project.
+CLASSES_LIST = ["turn_left", "turn_right"]
+```
+Note: The IMAGE_HEIGHT, IMAGE_WIDTH and SEQUENCE_LENGTH constants can be increased for better results, although increasing the sequence length is only effective to a certain point, and increasing the values will result in the process being more computationally expensive.
