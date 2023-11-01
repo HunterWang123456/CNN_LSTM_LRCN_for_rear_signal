@@ -43,7 +43,7 @@ tf.random.set_seed(seed_constant)
 ```
 
 ## Step 1: Create Dataset and its Labels
-If you want to try with UCF50 – Action Recognition Dataset, then you can click the link above and follow the auther's way. But here I'm going to show how to prepare your own dataset with a youtube video
+If you want to try with UCF50 – Action Recognition Dataset, then you can click [the link](https://bleedaiacademy.com/human-activity-recognition-using-tensorflow-cnn-lstm/) and follow the auther's way. But here I'm going to show how to prepare your own dataset with a youtube video
 
 1.1 Here is a [youtube video link](https://www.youtube.com/watch?v=_q3kA8OwZoU)  dowload it with whatever way you want (I recommend [this website](https://yt1s.ltd/zh-tw164h/youtube-to-mp4) )
 
