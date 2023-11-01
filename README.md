@@ -92,6 +92,7 @@ img3 = cv2.drawMatches(img1, keypoints_1, img2, keypoints_2, matches[:30], img2,
 plt.imshow(img3),plt.show()
 ```
 ![SIFT](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/0e213c86-3a2c-43e5-9807-655df3be5889)
+
 Next, we are going to use this technique to match our vehicle and warp the image up to create training data
 
 2.2 vehicle image subtraction
