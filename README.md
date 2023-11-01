@@ -289,7 +289,101 @@ one_hot_encoded_labels = to_categorical(labels)
 features_train, features_test, labels_train, labels_test = train_test_split(features, one_hot_encoded_labels, test_size = 0.25, shuffle = True, random_state = seed_constant)
 ```
 
+## Step 3. start training 
+
+3.1 Construct CNN-LSTM model
 ``` shell
-# Using Keras's to_categorical method to convert labels into one-hot-encoded vectors
-one_hot_encoded_labels = to_categorical(labels)
+! ipython create_convlstm_model.py
 ```
+
+3.2 Start training!
+``` shell
+# Create an Instance of Early Stopping Callback
+early_stopping_callback = EarlyStopping(monitor = 'val_loss', patience = 10, mode = 'min', restore_best_weights = True)
+
+# Compile the model and specify loss function, optimizer and metrics values to the model
+convlstm_model.compile(loss = 'categorical_crossentropy', optimizer = 'Adam', metrics = ["accuracy"])
+
+# Start training the model.
+convlstm_model_training_history = convlstm_model.fit(x = features_train, y = labels_train, epochs = 50, batch_size = 4,shuffle = True, validation_split = 0.2, callbacks = [early_stopping_callback])
+```
+
+3.3 Evaluation and store the well-trained model
+``` shell
+# Evaluate the trained model.
+model_evaluation_history = convlstm_model.evaluate(features_test, labels_test)
+
+# Get the loss and accuracy from model_evaluation_history.
+model_evaluation_loss, model_evaluation_accuracy = model_evaluation_history
+
+# Define the string date format.
+# Get the current Date and Time in a DateTime Object.
+# Convert the DateTime object to string according to the style mentioned in date_time_format string.
+date_time_format = '%Y_%m_%d__%H_%M_%S'
+current_date_time_dt = dt.datetime.now()
+current_date_time_string = dt.datetime.strftime(current_date_time_dt, date_time_format)
+
+# Define a useful name for our model to make it easy for us while navigating through multiple saved models.
+model_file_name = f'convlstm_model___Date_Time_{current_date_time_string}___Loss_{model_evaluation_loss}___Accuracy_{model_evaluation_accuracy}.h5'
+
+# Save your Model.
+convlstm_model.save(model_file_name)
+```
+
+3.4 Plot the training result and visualize loss and accuarcy within every epoch of training
+``` shell
+def plot_metric(model_training_history, metric_name_1, metric_name_2, plot_name):
+    '''
+    This function will plot the metrics passed to it in a graph.
+    Args:
+        model_training_history: A history object containing a record of training and validation
+                                loss values and metrics values at successive epochs
+        metric_name_1:          The name of the first metric that needs to be plotted in the graph.
+        metric_name_2:          The name of the second metric that needs to be plotted in the graph.
+        plot_name:              The title of the graph.
+    '''
+
+    # Get metric values using metric names as identifiers.
+    metric_value_1 = model_training_history.history[metric_name_1]
+    metric_value_2 = model_training_history.history[metric_name_2]
+
+    # Construct a range object which will be used as x-axis (horizontal plane) of the graph.
+    epochs = range(len(metric_value_1))
+
+    # Plot the Graph.
+    plt.plot(epochs, metric_value_1, 'blue', label = metric_name_1)
+    plt.plot(epochs, metric_value_2, 'red', label = metric_name_2)
+
+    # Add title to the plot.
+    plt.title(str(plot_name))
+
+    # Add legend to the plot.
+    plt.legend()
+
+# Visualize the training and validation loss metrices.
+plot_metric(convlstm_model_training_history, 'loss', 'val_loss', 'Total Loss vs Total Validation Loss')
+
+# Visualize the training and validation accuracy metrices.
+plot_metric(convlstm_model_training_history, 'accuracy', 'val_accuracy', 'Total Accuracy vs Total Validation Accuracy')
+```
+![CNN-LSTM-ver2-loss](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/d14814c0-3a6e-4c8f-b4e8-e79fd07ee4d7)
+
+![CNN-LSTM-ver2-accu](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/f1b5fa92-4e23-472a-ba81-819b8b41950b)
+
+## Result! Testing our model with real on-road settings
+
+1. my own testing data
+https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/c793824d-ead6-49e2-ab76-cc930a9d908d
+
+https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/f3b7ce32-d12b-46b8-86a7-58fb895ba59f
+
+2. Youtube video
+https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/38807b9e-d384-40f4-9f0b-684bc6e8770c
+
+https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/d5ed093d-7e04-4739-8c06-a17bfe165eec
+
+Sometimes, the net was not so smart and will get the wrong answer, but eventually get it rightXD
+
+Okay! That's the tutorial for today! Hope you enjoy it!
+
+
