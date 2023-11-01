@@ -116,7 +116,8 @@ def create_dirs():
 create_dirs()
 ```
 ![dataset](https://github.com/HunterWang123456/CNN_LSTM_LRCN_for_rear_signal/assets/74261517/0a514e2c-154d-4781-8760-0659a72d21ad)
-you can either upload the data from your own laptop or upload the dataset to google drive and transfer them to colab virtual machine via the code !cp [googel drive path]  [colab data folder path]
+
+you can either upload the data from your own laptop or upload the dataset to google drive and transfer them to colab virtual machine
 
 2.3 Implementation of sift flow
 ``` shell
@@ -213,3 +214,82 @@ DATASET_DIR = "tell_left_right"
 CLASSES_LIST = ["turn_left", "turn_right"]
 ```
 Note: The IMAGE_HEIGHT, IMAGE_WIDTH and SEQUENCE_LENGTH constants can be increased for better results, although increasing the sequence length is only effective to a certain point, and increasing the values will result in the process being more computationally expensive.
+
+``` shell
+def create_dataset():
+    '''
+    This function will extract the data of the selected classes and create the required dataset.
+    Returns:
+        features:          A list containing the extracted frames of the videos.
+        labels:            A list containing the indexes of the classes associated with the videos.
+        video_files_paths: A list containing the paths of the videos in the disk.
+    '''
+
+    # Declared Empty Lists to store the features, labels and video file path values.
+    features = []
+    labels = []
+    video_files_paths = []
+
+    # Iterating through two classes: turn left and turn right
+    for class_index, class_name in enumerate(CLASSES_LIST):
+
+        # Display the name of the class whose data is being extracted.
+        print(f'Extracting Data of Class: {class_name}')
+
+        # Get the list of video files present in the specific class name directory.
+        files_list = os.listdir(os.path.join(DATASET_DIR, class_name))
+
+        # Iterate through all the files present in the files list.
+        for file_name in files_list:
+
+            # Get the complete datasets path.
+            video_file_path = os.path.join(DATASET_DIR, class_name, file_name)
+            video_file_path_list=os.listdir(video_file_path)
+
+            # normalize frames in datasets.
+            frames_list = []
+            video_file_path_list.sort()
+            for frame_counter in range(SEQUENCE_LENGTH):
+                img_file=os.path.join(video_file_path,video_file_path_list[frame_counter])
+                img=cv2.imread(img_file)
+                resized_frame = cv2.resize(img, (IMAGE_HEIGHT, IMAGE_WIDTH))
+                normalized_frame = resized_frame / 255
+                frames_list.append(normalized_frame)
+            frames = frames_list
+
+            # Check if the extracted frames are equal to the SEQUENCE_LENGTH specified above.
+            # So ignore the vides having frames less than the SEQUENCE_LENGTH.
+            if len(frames) == SEQUENCE_LENGTH:
+
+                # Append the data to their repective lists.
+                features.append(frames)
+                labels.append(class_index)
+                video_files_paths.append(video_file_path)
+
+    # Converting the list to numpy arrays
+    features = np.asarray(features)
+    labels = np.array(labels)
+
+    # Return the frames, class index, and video file path.
+    return features, labels, video_files_paths
+```
+
+``` shell
+# Create the dataset.
+features, labels, video_files_paths = create_dataset()
+```
+
+``` shell
+# Using Keras's to_categorical method to convert labels into one-hot-encoded vectors
+one_hot_encoded_labels = to_categorical(labels)
+```
+
+``` shell
+# Split the Data into Train ( 75% ) and Test Set ( 25% ).
+features_train, features_test, labels_train, labels_test = train_test_split(features, one_hot_encoded_labels, test_size = 0.25, shuffle = True, random_state = seed_constant)
+```
+
+``` shell
+# Using Keras's to_categorical method to convert labels into one-hot-encoded vectors
+one_hot_encoded_labels = to_categorical(labels)
+```
