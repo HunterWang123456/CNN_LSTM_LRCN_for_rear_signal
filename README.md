@@ -54,9 +54,46 @@ If you want to try with UCF50 – Action Recognition Dataset, then you can click
 install it and operate it with your terminal
 of course, if you think that preparing your own data is very time consuming and effort costing, you can also choose to download a dataset containing  consecutive frames. As far as I'm concerned, I chooes the [Vehicle Rear Signal Dataset](http://vllab1.ucmerced.edu/~hhsu22/rear_signal/rear_signal#) which contained thousands of rear signal frames. 
 
-## Step 1.5: Create Dataset -- subtraction of the consecutive frames using sift flow
-according the [this paper](https://drive.google.com/file/d/13bCTSnB-29U83QgmLWihMXlqErMmJy-E/view), when a car is turing left/right, the only thing I want the model to focus on is the flashing rear signal. However, the model tend to be confused by the other features in the picture instead of only focus on the turing light. Thus, it's recommaned that we matched the cars with sift from openCV and subtract the vehicle before feeding into the model. That means, after this process, the only thing in the picture will be the flashing rear signal. The following is a demonstration.
-1.5.1
+## Step 2: Create Dataset -- subtraction of the consecutive frames using sift flow
+according the [this paper](https://drive.google.com/file/d/13bCTSnB-29U83QgmLWihMXlqErMmJy-E/view), when a car is turing left/right, the only thing I want the model to focus on is the flashing rear signal. However, the model seemed to be confused by the other features in the picture instead of only focus on the turing light. Thus, it's recommended that we matched the cars with sift in openCV and subtract the vehicle before feeding into the model. That means, after processing, the only thing in the picture will be the flashing rear signal. The following is a demonstration.
+
+2.1 Introduction of SIFT
+
+The SIFT (Scale-Invariant Feature Transform) algorithm is a computer vision technique used for feature detection and description. It detects distinctive key points or features in an image that are robust to changes in scale, rotation, and affine transformations. SIFT works by identifying keypoints based on their local intensity extrema and computing descriptors that capture the local image information around those keypoints. These descriptors can then be used for tasks like image matching, object recognition, and image retrieval. Other detail can be [reviewed here](https://www.analyticsvidhya.com/blog/2019/10/detailed-guide-powerful-sift-technique-image-matching-python/)
+
+Upload two images and run the following code 
+``` shell
+import cv2 
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+# read images
+img1 = cv2.imread('Eiffel1.png')  
+img2 = cv2.imread('Eiffel2.png')
+
+# gray scale to avoid SIFT interfered by the original color and only focus on outline
+img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+
+#sift
+sift = cv2.xfeatures2d.SIFT_create()
+
+keypoints_1, descriptors_1 = sift.detectAndCompute(img1,None)
+keypoints_2, descriptors_2 = sift.detectAndCompute(img2,None)
+
+#feature matching
+bf = cv2.BFMatcher(cv2.NORM_L1, crossCheck=True)
+
+matches = bf.match(descriptors_1,descriptors_2)
+matches = sorted(matches, key = lambda x:x.distance)
+
+img3 = cv2.drawMatches(img1, keypoints_1, img2, keypoints_2, matches[:30], img2, flags=2)
+plt.imshow(img3),plt.show()
+```
+![SIFT](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/0e213c86-3a2c-43e5-9807-655df3be5889)
+Next, we are going to use this technique to match our vehicle and warp the image up to create training data
+
+2.2 vehicle image subtraction
 ``` shell
 import os
 cur_dir = os.curdir                                                         # The root directory
@@ -78,8 +115,9 @@ create_dirs()
 ```
 ![dataset](https://github.com/HunterWang123456/CNN_LSTM_LRCN_for_rear_signal/assets/74261517/0a514e2c-154d-4781-8760-0659a72d21ad)
 you can either upload the data from your own laptop or upload the dataset to google drive and transfer them to colab virtual machine via the code !cp [googel drive path]  [colab data folder path]
+
+2.3 Implementation of sift flow
 ``` shell
-#credit to HIWang
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
