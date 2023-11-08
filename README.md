@@ -390,9 +390,9 @@ plot_metric(convlstm_model_training_history, 'accuracy', 'val_accuracy', 'Total 
 
 1. my own testing data
 
-https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/c793824d-ead6-49e2-ab76-cc930a9d908d
+![LRCN_test-Output-SeqLen20](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/a3eaf158-8053-4b4d-a254-403df99cd1f0)
 
-https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/f3b7ce32-d12b-46b8-86a7-58fb895ba59f
+![LRCN_test2-Output-SeqLen20](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/f9cd72e1-8dfc-4bbe-b0d0-767ac96917d3)
 
 2. Youtube video
 
