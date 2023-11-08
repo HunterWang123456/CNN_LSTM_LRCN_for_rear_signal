@@ -396,7 +396,7 @@ https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/f3b7
 
 2. Youtube video
 
-https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/38807b9e-d384-40f4-9f0b-684bc6e8770c
+![LRCN_test7-Output-SeqLen20](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/270cd14b-3e0f-48b5-a098-cb6250e465ad)
 
 ![LRCN_stupid_driver_2nd-Output-SeqLen20](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/273f2ae5-32f6-40f2-b0ba-5efa6577c494)
 
