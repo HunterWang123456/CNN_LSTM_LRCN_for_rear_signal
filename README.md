@@ -51,7 +51,8 @@ If you want to try with UCF50 – Action Recognition Dataset, then you can click
 
 1.3 Turned the mp4 into several consecutive frames with ffmpeg. You can download [here](https://www.ffmpeg.org/): 
 ![my first git tutorial](https://github.com/HunterWang123456/CNN_LSTM_LRCN_for_rear_signal/assets/74261517/d70a2c34-bdde-458a-bcc3-fe8ed83c697f)
-install it and operate it with your terminal
+install it and operate it with your terminal, the result would be like the following
+![ffmpeg](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/99f8cda7-6cf8-49cd-84b1-ae05c0236c08)
 
 of course, if you think that preparing your own data is very time consuming and effort costing, you can also choose to download a dataset containing  consecutive frames. As far as I'm concerned, I chooes the [Vehicle Rear Signal Dataset](http://vllab1.ucmerced.edu/~hhsu22/rear_signal/rear_signal#) which contained thousands of rear signal frames. 
 
@@ -93,7 +94,7 @@ plt.imshow(img3),plt.show()
 ```
 ![SIFT](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/0e213c86-3a2c-43e5-9807-655df3be5889)
 
-Next, we are going to use this technique to match our vehicle and warp the image up to create training data
+Next, we are going to apply this technique to match our vehicle and warp the image up to create training data
 
 2.2 vehicle image subtraction
 ``` shell
