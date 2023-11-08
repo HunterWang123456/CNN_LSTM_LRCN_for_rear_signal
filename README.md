@@ -199,6 +199,7 @@ for folder_name in obj_classes:
 #plt.imshow(output),plt.show()
 ```
 After the subtracion, the following picuture is one the example of the result. As you can see, the other features were eliminated except for the turning light
+
 ![rear_light](https://github.com/HunterWang123456/CNN_LSTM_LRCN_for_rear_signal/assets/74261517/8f6a7744-5368-4982-a0ca-5098c573c889)
 
 ## Step 2: Preprocess the Dataset
