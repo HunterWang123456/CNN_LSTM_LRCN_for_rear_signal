@@ -201,7 +201,7 @@ for folder_name in obj_classes:
 After the subtracion, the following picuture is one the example of the result. As you can see, the other features were eliminated except for the turning light
 ![rear_light](https://github.com/HunterWang123456/CNN_LSTM_LRCN_for_rear_signal/assets/74261517/8f6a7744-5368-4982-a0ca-5098c573c889)
 
-## Step 3: Preprocess the Dataset
+## Step 2: Preprocess the Dataset
 ``` shell
 # Specify the height and width to which each video frame will be resized in our dataset.-> the value is flexible 
 IMAGE_HEIGHT , IMAGE_WIDTH = 256, 256
@@ -292,11 +292,22 @@ features_train, features_test, labels_train, labels_test = train_test_split(feat
 ```
 
 ## Step 3. start training 
+In this step, we will implement the first approach by using a combination of ConvLSTM cells. A ConvLSTM cell is a variant of an LSTM network that contains convolutions operations in the network. it is an LSTM with convolution embedded in the architecture, which makes it capable of identifying spatial features of the data while keeping into account the temporal relation.
+![model1](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/e3929333-46de-4fa0-8ba9-1ec4b88e2f79)
+
+For video classification, this approach effectively captures the spatial relation in the individual frames and the temporal relation across the different frames. As a result of this convolution structure, the ConvLSTM is capable of taking in 3-dimensional input (width, height, num_of_channels) whereas a simple LSTM only takes in 1-dimensional input hence an LSTM is incompatible for modeling Spatio-temporal data on its own.
 
 3.1 Construct CNN-LSTM model
+
+To construct the model, we will use Keras ConvLSTM2D recurrent layers. The ConvLSTM2D layer also takes in the number of filters and kernel size required for applying the convolutional operations. The output of the layers is flattened in the end and is fed to the Dense layer with softmax activation which outputs the probability of each action category.
+
+We will also use MaxPooling3D layers to reduce the dimensions of the frames and avoid unnecessary computations and Dropout layers to prevent overfitting the model on the data. The architecture is a simple one and has a small number of trainable parameters. This is because we are only dealing with a small subset of the dataset which does not require a large-scale model.
+
 ``` shell
 ! ipython create_convlstm_model.py
 ```
+The following is the constructed model
+![model](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/15bfbfab-86a3-4164-b702-0dbeb1e0cc39)
 
 3.2 Start training!
 ``` shell
