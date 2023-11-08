@@ -309,6 +309,7 @@ We will also use MaxPooling3D layers to reduce the dimensions of the frames and 
 ! ipython create_convlstm_model.py
 ```
 The following is the constructed model
+
 ![model](https://github.com/HunterWang123456/Turning-Light-Detection/assets/74261517/15bfbfab-86a3-4164-b702-0dbeb1e0cc39)
 
 3.2 Start training!
